@@ -1,0 +1,343 @@
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace C_Course
+{
+    #region Enum
+    //class Enum interface struct 
+    // Enum (value type) containt const data type
+    // each label has default int start from 0
+    //enum Gender:int
+    //{
+    //    Male,
+    //    m=0,
+    //    Female
+    //}
+    //enum Grades:byte//max 255
+    //{
+    //    A=250,
+    //    B=250,
+    //    C,
+    //    D ,
+    //    F
+
+    //}
+    // permision enum
+    //[Flags]
+    //enum permesion:byte//only 8 permisions deal with bits
+    //{
+    //    Write=1 ,
+    //    read,
+    //    Delete=4,
+    //    execute=8
+
+    //} 
+    #endregion
+
+    #region p1
+    //enum WeekDays
+    //{
+    //    monday,
+    //    tuesday, wednesday, thursday, friday,
+    //    saterday, sunday
+
+    //} 
+    #endregion
+
+    #region p2
+    enum Season
+    {
+        Spring,
+        Summer,
+        Autumn,
+        Winter
+    }
+    #endregion
+    #region p3
+    [Flags]
+    enum permesion : byte
+    {
+        Write = 1,
+        read = 2,
+        Delete = 4,
+        execute = 8
+
+    }
+    #endregion
+
+    #region p4
+
+    enum Colors
+    {
+        Red,
+        Green,
+        Blue
+    } 
+    #endregion
+    internal class Program
+    {
+        #region Exception
+        //   static void doSomeCode()
+        //{
+        //    int x = int.Parse(Console.ReadLine());
+        //    int y = int.Parse(Console.ReadLine());
+        //    int div = x / y;
+        //    int[] arr = { 1, 2, 3 };
+        //    arr[100] = 10;
+        //}
+        //static void doSomeProtictiveCode()
+        //{
+        //    int x, y;
+        //    do
+        //    {
+        //        Console.WriteLine("enter first num: ");
+        //    }
+        //    while (!int.TryParse(Console.ReadLine(),out x));
+        //    do
+        //    {
+        //        Console.WriteLine("enter second num: ");
+        //    }
+        //    while (!int.TryParse(Console.ReadLine(), out y)||y==0);
+        //    int div = x / y;
+        //    Console.WriteLine(div);
+        //    int[] arr = { 1, 2, 3 };
+        //    if (arr is not null)
+        //    {
+        //        try
+        //        {
+        //            arr[100] = 10;
+        //        }
+        //        catch (Exception e) { 
+        //            Console.WriteLine(e.ToString());
+        //        }
+        //        finally//to end connection with dB or files
+        //        {
+
+        //        }
+
+        //    }
+        //} 
+        #endregion
+        static void Main(string[] args)
+        {
+
+            #region Boxing && Unboxing
+            //Casting 
+            //Value type to Value type 
+            //Reference to Reference (OOP)
+            //Value to Reference (Boxing)
+            //Reference to Value (Unboxing)
+            //behaivor SHOULD TO Avoid 
+            #region Boxing
+            //Implicit Casting -> Safe Casting 
+
+            //int x = 5;//Stack 
+            //object obj = x;//Reference Type  from int to ref
+            //obj = true; Safe Casting 
+            //obj = "A"; Safe Casting 
+            //obj = 1.5  Safe Casting 
+            #endregion
+
+            #region Unboxing 
+
+            //string s1="mo";
+            //string s = "mo";
+            //Console.WriteLine( Object.ReferenceEquals( s1,s));
+            ////Explicit Casting -> UnSafe Code
+            //object numbers = new int[5] { 1, 2, 3, 4, 5 };
+            //object obj = 30;
+            //int y = (int)numbers;//Unboxing exception 
+            //Console.WriteLine(y);
+            //int x= (int)numbers;    //unsafe
+
+
+            #endregion
+
+            #endregion
+
+            #region Nullable Types
+            //Value Null => Reference Type
+            //Value Type xxxx
+
+            //int x = null;
+            //Nullable<>
+
+            //int? x = null;
+
+            //x.HasValue;
+            //x.Value
+
+            //int? x = null; //X Can Allow  Null Value || Int Value
+
+            //Nullable int(Null || int) || int(int)
+
+            //int z = 99;
+            //int? M = z;
+
+            //if(x is not null)
+            //{
+            //    int y = (int)x;
+            //}
+            //int y;
+            //if (x.HasValue)
+            //{
+            //     y = x.Value;
+            //}
+
+
+            //else
+            //{
+            //    y = 0;
+            //}
+            //y = x is not null ? (int) x : 0;
+            #region Null Propagation
+            //?
+            //int y = x ?? 0;
+
+            //string? Desc = null;
+
+            //string ProductDesc = Desc ?? "N/A";colaeasing
+
+            #endregion
+
+            #region Null Coleasing Operator
+            //??
+            //Nullable Type => Type?
+            //Null Propagtion => Value
+            // Variable
+
+            //int[]? Numbers = null;
+            //// not good in preformance 
+            //for (int i = 0; i < Numbers?.Length; i++)//any comparsion with null false
+            //{
+            //    Console.WriteLine(i);
+            //}
+            ////Pass EmployeeId
+            ////Employee => Emp01  Null
+
+
+            //
+            //string DeptName = Employee?.Department?.DeptName ?? "N/A";
+
+
+            //null forgevince operator
+            //string name = null!; prevent warrning
+
+            #endregion
+            #endregion
+
+            #region Exception
+            // Exception 
+            // 1.system exception:   
+            // 2.app exception
+
+            // doSomeProtictiveCode(); 
+            #endregion
+
+            #region access modifire 
+            //access modifire 
+            // private  in same scope only
+            // internall in same project
+            // puplic every where 
+            #endregion
+
+            #region Enum
+
+            //Gender g=Gender.m;
+            //Console.WriteLine(g);//out male cuz its appear first
+            //Grades grades = Grades.F;
+            //Console.WriteLine(grades.ToString());
+            //int num =(int) grades;
+            //Console.WriteLine(num);
+            //foreach (var item in Enum.GetValues(typeof(Grades)))
+            //{
+            //    Console.WriteLine(item);    
+
+            //}
+            //permesion p = (permesion)1;
+            //Console.WriteLine(p);
+            //p ^= (permesion.Delete);
+            //Console.WriteLine(p);
+
+            //if ((p & permesion.Delete)==permesion.Delete)
+            //{
+            //    Console.WriteLine("already exist");
+            //}
+            //else
+            //{
+            //    p ^= permesion.Delete;
+            //} 
+            #endregion
+
+            #region p1
+
+            //Create an enum called "WeekDays" with the days of the week(Monday to Sunday) as its members.Then, write a C# program that prints out all the days of the week using this enum.
+
+            //foreach(var day in Enum.GetValues(typeof(WeekDays)))
+            //    Console.WriteLine(day); 
+            #endregion
+
+            #region p2
+            // Create an enum called "Season" with the four seasons(Spring, Summer, Autumn, Winter) as its members.Write a C# program that takes a season name as input from the user and displays the corresponding month range for that season. Note range for seasons ( spring march to may , summer june to august , autumn September to November , winter December to February)
+            //Console.WriteLine("Enter a season (Spring, Summer, Autumn, Winter):");
+            //string s = Console.ReadLine();
+
+            //if (Enum.TryParse(s, true, out Season season))
+            //{
+            //    switch (season)
+            //    {
+            //        case Season.Spring:
+            //            Console.WriteLine("Spring: March to May");
+            //            break;
+            //        case Season.Summer:
+            //            Console.WriteLine("Summer: June to August");
+            //            break;
+            //        case Season.Autumn:
+            //            Console.WriteLine("Autumn: September to November");
+            //            break;
+            //        case Season.Winter:
+            //            Console.WriteLine("Winter: December to February");
+            //            break;
+            //        default:
+            //            Console.WriteLine("Invalid season.");
+            //            break;
+            //    }
+            //} 
+            #endregion
+            #region p3
+
+            //permesion p = permesion.execute;
+            //Console.WriteLine((int)p);
+            //if ((p & permesion.execute) == permesion.execute)
+            //{
+            //    Console.WriteLine("Exist");
+            //}
+            //else
+            //    Console.WriteLine("Not exist");  
+
+            #endregion
+
+            #region p4
+            //Console.Write("Enter a color (Red, Green, Blue): ");
+            //string input = Console.ReadLine();
+
+            //if (Enum.TryParse(input, true, out Colors color))
+            //{
+            //    if (color == Colors.Red || color == Colors.Blue || color == Colors.Green)
+            //    {
+            //        Console.WriteLine($"{color} is a primary color.");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{color} is not a primary color in the RGB model.");
+            //    }
+            //} 
+            #endregion
+
+        }
+    }
+}
