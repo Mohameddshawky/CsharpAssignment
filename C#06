@@ -1,0 +1,588 @@
+using C_Course;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace C_Course
+{
+    internal struct Point
+    {
+        #region Attributes 
+        public int x;
+        public int y;
+        #endregion
+
+        #region Constructor
+        // Constructor : Special Methods
+        //      1. Named Like Struct
+        //      1. Has No Return Type
+
+
+        // ClR : Will generate paarameterless constructor automatically
+        // This constructor will be called when we create an object of Point without passing any parameters.
+        // This constructor initializes the fields x and y to their default values (0 for int).
+
+        #region .NET Versions
+        // .Net 5.0 C# 9.0 : Canot use parameterless constructor.
+        // .Net 6.0 C# 10.0 : Can use parameterless constructor, but it is not generated automatically.
+        // .Net 7.0 C# 11.0 : has autocomppletion for parameterless constructor by it's default value.
+        // .Net 8.0 C# 12.0 : Can use parameterless constructor, and it is generated automatically.
+        #endregion
+
+        #region Constructor Overloading
+        public Point()
+        {
+            x = default;
+            y = 22;
+        }
+
+        public Point(int n)
+        {
+            x = n;
+            y = n;
+            // This constructor initializes both x and y to the same value n.
+        }
+
+        public Point(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        #endregion
+        #endregion
+
+        #region Methods
+        public override string ToString()
+        {
+            return $"({x},{y})";
+        }
+        #endregion 
+    }
+
+    internal struct Employee
+    {
+        private int id;
+        private string name;
+        private double salary;
+        // Address
+
+        #region Applying Encapsulation by Setter and Getter.
+        //// Applying Encapsulation by Setter and Getter
+        //// Setter
+        //public void SetId(int id)
+        //{
+        //    if (id <= 0)
+        //    {
+        //        throw new ArgumentException("Id must be greater than 0");
+        //    }
+        //    this.id = id;
+        //}
+
+        //// Getter
+        //public int GetId()
+        //{
+        //    return id;
+        //}
+
+        //// Setter Name
+        //public void SetName(string name)
+        //{
+        //    this.name = name;
+        //}
+
+        //// Getter Name
+        //public string GetName()
+        //{
+        //    return name;
+        //}
+        //// Setter Salary
+        //public void SetSalary(double salary)
+        //{
+        //    if (salary < 0)
+        //    {
+        //        throw new ArgumentException("Salary must be greater than or equal to 0");
+        //    }
+        //    this.salary = salary;
+        //}
+
+        //// Getter Salary
+        //public double GetSalary()
+        //{
+        //    return salary;
+        //}
+
+
+        //public Employee(int id, string name, double salary)
+        //{
+        //    SetId(id);
+        //    SetName(name);
+        //    SetSalary(salary);
+        //}
+
+
+        //public override string ToString()
+        //{
+        //    return $"Id: {id}, Name: {name}, Salary: {salary}";
+        //} 
+        #endregion
+
+        #region Applying Encapsulation by Properties.
+        //// Applying Encapsulation by Properties: [Reccommended]
+        //// 1. Full Property
+        //// It Means to use properties to encapsulate the data(Private Attributes).
+
+        ////Id
+        //public int Id
+        //{
+        //    //set
+        //    //get
+        //    set
+        //    {
+        //        id = value;
+        //    }
+
+        //    get
+        //    {
+        //        return id;
+        //    }
+        //}
+
+        ////Name
+        //public string Name
+        //{
+        //    set
+        //    {
+        //        if (value.Length >= 8 && value.Length <= 20)
+        //        {
+        //            name = value;
+        //        }
+        //    }
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //}
+
+        ////Salary
+        //public double Salary
+        //{
+        //    set
+        //    {
+        //        if (value < 0)
+        //        {
+        //            throw new ArgumentException("Salary must be greater than or equal to 0");
+        //        }
+        //        salary = value;
+        //    }
+        //    get
+        //    {
+        //        return salary;
+        //    }
+        //}
+
+
+        //// 2. Automatic Property
+        //// It Means That the compiler will automatically create a private field for you and U Didnot Need to do anything.
+        //// It is used when you do not need to add any logic to the setter or getter.
+
+        //public string Address { get; set; } 
+
+
+        //// 3. Special Property [Indexer]
+
+
+        #endregion
+    }
+    internal class Car
+    {
+        #region Attributes
+
+        // Id
+        private int id;
+        // Model
+        private string model;
+        //Speed
+        private int speed;
+        #endregion
+
+        #region Properties 
+        public int Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
+
+        public string Model
+        {
+            get { return model; }
+            set { model = value; }
+        }
+
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+        #endregion
+
+        #region Constructor
+        // CLR will generate a default constructor if no constructor is defined.
+        // public Car(){ }
+        // This constructor do nothing.
+
+
+        #region Cunstructor Chaining
+        public Car(int id, string model, int speed) : this(id, model)
+        {
+            //this.id = id;
+            //this.model = model;
+            this.speed = speed;
+        }
+
+        public Car(int id, string model) : this(id)
+        {
+            //this.id = id;
+            this.model = model;
+        }
+        public Car(int id)
+        {
+            this.id = id;
+        }
+        #endregion
+
+        #endregion
+
+        #region Methods
+        override public string ToString()
+        {
+            return $"Car ID: {Id}, Model: {Model}, Speed: {Speed} km/h";
+        }
+        #endregion
+
+    }
+    internal struct PhoneBook
+    {
+        string[] names;
+        long[] phoneNumbers;
+
+        public PhoneBook(int size)
+        {
+            names = new string[size];
+            phoneNumbers = new long[size];
+        }
+
+        public long this[string name]
+        {
+            get
+            {
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (names[i] == name)
+                    {
+                        return phoneNumbers[i];
+                    }
+                }
+                //Console.WriteLine("Name not found.");
+                return -1; // Indicating not found
+            }
+
+            set
+            {
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (names[i] == name)
+                    {
+                        phoneNumbers[i] = value;
+                        return;
+                    }
+                }
+                //Console.WriteLine("Name not found.");
+            }
+        }
+
+        public string this[long index]
+        {
+            get
+            {
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (phoneNumbers[i] == index)
+                    {
+                        return names[i];
+                    }
+                }
+                return "";
+            }
+            set
+            {
+                if (index < 0 || index >= names.Length)
+                {
+                    Console.WriteLine("Index out of range.");
+                    return;
+                }
+                for (int i = 0; i < names.Length; i++)
+                {
+                    if (phoneNumbers[i] == index)
+                    {
+                        names[index] = value;
+                    }
+                }
+            }
+        }
+
+
+        public void Add(int index, string name, long phoneNumber)
+        {
+            if (index < 0 || index >= names.Length)
+            {
+                Console.WriteLine("Index out of range.");
+                return;
+            }
+            names[index] = name;
+            phoneNumbers[index] = phoneNumber;
+        }
+
+        public long GetNumber(string name)
+        {
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (names[i] == name)
+                {
+                    return phoneNumbers[i];
+                }
+            }
+            //Console.WriteLine("Name not found.");
+            return -1; // Indicating not found
+        }
+
+        public void updateNumber(string name, long newNumber)
+        {
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (names[i] == name)
+                {
+                    phoneNumbers[i] = newNumber;
+                    return;
+                }
+            }
+            //Console.WriteLine("Name not found.");
+        }
+
+        public string getName(int index)
+        {
+            if (index < 0 || index >= names.Length)
+            {
+                return "Index out of range.";
+            }
+            return names[index];
+        }
+
+        public void updateName(int index, string newName)
+        {
+            if (index < 0 || index >= names.Length)
+            {
+                Console.WriteLine("Index out of range.");
+                return;
+            }
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (phoneNumbers[i] == index)
+                {
+                    names[index] = newName;
+                }
+            }
+
+        }
+
+
+
+    }
+
+    internal class Program
+    {
+
+        static void Main(string[] args)
+        {
+            #region Struct (V01)
+            // Struct : Value Type : Stack Memory
+
+            // Employee 
+            // Id, Name, Age, Address
+            // Point
+
+            //Point p01;
+            // Declare For Object Creation From Type Point
+            // P01 : Object of Type Point
+            // CLR will Allocate 8 uninitialized Bytes at Stack
+
+            //Console.WriteLine(p01.x); //Invalid
+
+            // p01.x = 10; // Assign Value to x
+            // p01.y = 20; // Assign Value to y
+            //  Console.WriteLine(p01.x); 
+            //  Console.WriteLine(p01.y);
+
+            //p01 = new Point();
+            // new : used for select the constructor 
+
+
+            //Console.WriteLine(p01.x);
+            //Console.WriteLine(p01.y);
+            //Console.WriteLine(p01.ToString());
+            //Console.WriteLine(p01); // Implicitly Calls ToString() Method 
+
+            //Point p2 = new Point(1, 2); // (1,2)
+
+            //Console.WriteLine(p2); // (1,2)
+
+            //Point p3 = new Point(3); // (3,3)
+
+            //Console.WriteLine(p3); // (3,3)
+            #endregion
+
+            #region OOP Overview (V02)
+            // OOP : Object Oriented Programming
+            // Programming Paradigm
+            // OOP : The best paradigm for software development and for Build any Business.
+
+            // Class : Blueprint for Object Creation
+            // Object : Instance of Class
+            // Class : Reference Type : Heap Memory
+
+            // 4 pillars of OOP
+            // =================>
+            // 1. Encapsulation --> means to wrap data and methods that operate on that data within a single unit (class).
+
+            // 2. Inheritance --> allows a class (derived class) to inherit
+
+            // 3. Polymorphism --> allows methods to do different things based on the object it is acting upon, even if they share the same name.
+
+            // 4. Abstraction --> is the concept of hiding the complex implementation details and showing only the essential features of the object.
+
+            #endregion
+
+            #region Encapsulation Using Setter&Getter (V03)
+            // 1. Encapsulation :
+            // Class or Struct 
+            // Separate the data (Attributes) and methods that operate on that data within a single unit (class).
+            // [Setters and Getters] or [Properties] to control access to the data.
+
+            // EX)1 : Creating Struct Employee
+            // ID, Name, Salary
+
+            // 1. End user access the data directly.
+            // 2. No data validation.
+            // 3. No Read only properties.
+
+            // Apply encapsulation using Struct
+            // 1. Make all data private.
+            // 2. Access Data Through :
+            // 2.1. Public Properties
+            // 2.2. setters and getters
+
+            //Employee emp01 = new Employee();
+
+            //emp01.id = 1;
+            //emp01.name = "Abdelrhman Essam";
+            //emp01.salary = 50000.0;
+
+            //Console.WriteLine(emp01.id);
+            //Console.WriteLine(emp01.name);
+            //Console.WriteLine(emp01.salary);
+
+            //emp01.SetId(1);
+            //emp01.SetName("Abdelrhman Essam");
+            //emp01.SetSalary(50000.0);
+
+            //Employee emp01 = new Employee(1, "Abdelrhman", 500000.0);
+
+            //Console.WriteLine(emp01.GetId());
+            //Console.WriteLine(emp01.GetName());
+            //Console.WriteLine(emp01.GetSalary());
+
+            //Console.WriteLine(emp01); 
+            #endregion
+
+            #region Encapsulation Using Properties (V04)
+            //Employee e01 = new Employee(); 
+
+            //e01.Id = 1;
+            //e01.Name = "Abdelrhman Essam";
+            //e01.Salary = 50000.0;
+            //e01.Address = "Cairo, Egypt"; // Address is not encapsulated, it can be set directly
+
+            //Console.WriteLine(e01.Id); // 1
+            //Console.WriteLine(e01.Name); // Abdelrhman Essam
+            //Console.WriteLine(e01.Salary); // 50000.0
+            //Console.WriteLine(e01.Address); // Cairo, Egypt 
+            #endregion
+
+            #region Indexer (V05) 
+            // Indexer : Special Proper
+            //         1.Allows an object to be indexed like an array
+            //         2.Named this 
+            //         
+
+
+            // PhoneBook :
+            // 1. Create a PhoneBook Struct
+
+            //PhoneBook phoneBook = new PhoneBook(3);
+
+            //phoneBook.Add(0, "Ali", 1234567890);
+            //phoneBook.Add(1, "Samy", 989898);
+            //phoneBook.Add(2, "Mona", 5555555555);
+            //phoneBook.Add(3, "Hamada", 1472583690); // Invalid Index
+
+            //Console.WriteLine(phoneBook.GetNumber("Hamada")); // -1
+            //Console.WriteLine(phoneBook.GetNumber("Mona")); // 5555555555
+
+            //phoneBook.updateNumber("Mona", 123456);
+            //Console.WriteLine(phoneBook.GetNumber("Mona")); // 123456
+
+
+            //Console.WriteLine(phoneBook["Samy"]); // 989898
+
+            //phoneBook["Samy"] = 1472583690;
+
+            //Console.WriteLine(phoneBook["Samy"]); // 1472583690
+
+            //Console.WriteLine(phoneBook[5555555555]); 
+            #endregion
+
+            #region Class - Internal construcor chaining (V06) 
+            // Class : Reference Type : Heap Memory
+
+            // Car : Id, Model, Speed
+
+            //Car car01;
+            // Declare For Reference (Pointer) From Type Car
+            // car01 : Can refer to an object of Type Car or any class that inherits from Car
+            // car01 : refer to null
+            // 8 Bytes at Stack Memory will be allocated for car01
+            // 0 Bytes at Heap Memory will be allocated for car01
+
+            //car01 = new Car(1, "BMW", 220);
+            // new :
+            // 1. Allocate Memory at Heap for Object of Type Car (+16 bytes)
+            // 2. Intialize the allocated memory with default values
+            // 3. Call user defined constructor if exists
+            // 4. Return the reference (pointer) to the allocated memory
+            // 5. Assign the reference to car01
+
+            //Console.WriteLine(car01.Id); // 0
+            //Console.WriteLine(car01.Model); // null
+            //Console.WriteLine(car01.Speed); // 0
+
+            //Console.WriteLine(car01); // Session01.Car -- before overriding ToString() 
+            #endregion
+
+
+        }
+
+        }
+    }
